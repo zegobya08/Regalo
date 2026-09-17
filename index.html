@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destiny 2 - Cumpleaños 24 (Regalo Completo)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Cinzel:wght@500;700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =========================================
+           ESTILOS GLOBALES
+           ========================================= */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #000;
+        }
+
+        /* Control de fases principales */
+        .master-phase {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            transition: opacity 1s ease-in-out;
+            opacity: 0;
+            display: none;
+            z-index: 1;
+        }
+        .master-phase.active {
+            opacity: 1;
+            display: block;
+            z-index: 10;
+        }
+
+        /* =========================================
+           FASE 1: CONVERSACIÓN INICIAL
+           ========================================= */
+        #phase1-conversacion {
+            font-family: 'Press Start 2P', monospace;
+        }
+        
+        #scenery-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('escenario0.jpg');
+            background-size: cover;
+            background-position: center bottom;
+            z-index: -2;
+        }
+
+        #espectro-float-container {
+            position: absolute;
+            left: 55%;
+            top: 45%;
+            transform: translateX(-50%);
+            z-index: -1;
+        }
+
+        #espectro-float-gif {
+            width: 70px;
+            height: auto;
+            image-rendering: pixelated;
+            animation: floatEspectro 2s ease-in-out infinite;
+        }
+
+        @keyframes floatEspectro {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .dialogue-wrapper {
+            position: absolute;
+            bottom: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 800px;
+            z-index: 100;
+        }
+
+        .dialogue-box {
+            display: flex;
+            background-color: rgba(15, 15, 25, 0.85);
+            border: 4px solid #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 0 4px #000, inset 0 0 0 2px #000;
+            position: relative;
+        }
+
+        .character-portrait {
+            width: 120px;
+            height: 120px;
+            background-color: #2a2a35;
+            border: 2px solid #ffffff;
+            border-radius: 4px;
+            flex-shrink: 0;
+            margin-right: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .character-portrait img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            image-rendering: pixelated;
+        }
+
+        .dialogue-content {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            position: relative;
+        }
+
+        .character-name {
+            position: absolute;
+            top: -45px;
+            left: -10px;
+            background-color: #ffffff;
+            color: #000000;
+            padding: 8px 12px;
+            font-size: 14px;
+            border: 4px solid #000000;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .dialogue-text {
+            color: #ffffff;
+            font-size: 14px;
+            line-height: 1.8;
+            margin-top: 5px;
+            min-height: 75px;
+            text-shadow: 2px 2px 0 #000;
+        }
+
+        .next-arrow {
+            position: absolute;
+            bottom: -5px;
+            right: 0;
+            color: #ffffff;
+            font-size: 16px;
+            text-shadow: 2px 2px 0 #000;
+            animation: blink 1s step-end infinite;
+            display: none;
+            cursor: pointer;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Responsividad Diálogo */
+        @media (max-width: 600px) {
+            #espectro-float-container { left: 60%; top: 40%; }
+            #espectro-float-gif { width: 35px; }
+            .dialogue-wrapper { width: 95%; bottom: 2%; }
+            .dialogue-box { flex-direction: column; align-items: center; padding: 15px; }
+            .character-portrait { margin-right: 0; margin-bottom: 15px; width: 80px; height: 80px; }
+            .character-name { top: -25px; left: 50%; transform: translateX(-50%); font-size: 12px; padding: 5px 8px; }
+            .dialogue-text { font-size: 12px; text-align: center; min-height: 60px; }
+            .next-arrow { bottom: -15px; }
+        }
+
+        /* =========================================
+           FASE 2: PANTALLA DE CARGA (GIF)
+           ========================================= */
+        #phase2-carga {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: #020208;
+            color: white;
+            font-family: 'Press Start 2P', monospace;
+        }
+        .loading-gif {
+            width: 300px;
+            height: auto;
+            max-width: 80%;
+            margin-bottom: 30px;
+            animation: pulseCarga 2s infinite alternate; 
+        }
+        .loading-text {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: blink 1.5s step-end infinite;
+        }
+        @keyframes pulseCarga {
+            0% { filter: brightness(0.8); transform: scale(0.98); }
+            100% { filter: brightness(1.2); transform: scale(1.02); }
+        }
+
+        /* =========================================
+           FASE 3: REGALO (Destiny + Avatar)
+           ========================================= */
+        #phase3-regalo {
+            font-family: 'Quicksand', sans-serif;
+            position: relative;
+        }
+        
+        .phase-regalo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transition: opacity 1s ease-in-out;
+            opacity: 1;
+        }
+
+        /* Órbita */
+        #orbit-phase {
+            background: radial-gradient(circle at center, #0b112c 0%, #020208 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            image-rendering: pixelated;
+            z-index: 10;
+        }
+
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+                radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 20px);
+            background-size: 550px 550px, 350px 350px, 250px 250px;
+            background-position: 0 0, 40px 60px, 130px 270px;
+            opacity: 0.6;
+        }
+
+        .earth {
+            position: absolute;
+            bottom: -55vh;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 110vw;
+            height: auto;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .traveler {
+            position: absolute;
+            top: 10%; 
+            left: 50%;
+            transform: translateX(-50%);
+            width: 22vw;
+            max-width: 260px; 
+            height: auto;
+            z-index: 2; 
+            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.8));
+            image-rendering: pixelated;
+            animation: floatTraveler 4s ease-in-out infinite;
+        }
+
+        @keyframes floatTraveler {
+            0%, 100% { transform: translate(-50%, 0px); }
+            50% { transform: translate(-50%, -15px); }
+        }
+
+        .ship-wrapper {
+            position: absolute;
+            z-index: 3;
+            bottom: 18%;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .ship-img {
+            width: 160px; 
+            height: auto;
+            filter: drop-shadow(0 0 25px rgba(0, 240, 255, 0.95)) drop-shadow(0 0 10px rgba(255, 255, 255, 0.8));
+            animation: pulseShipGlow 2.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulseShipGlow {
+            0% { filter: drop-shadow(0 0 15px rgba(0, 240, 255, 0.7)) drop-shadow(0 10px 15px rgba(0,0,0,0.8)); }
+            100% { filter: drop-shadow(0 0 35px rgba(0, 240, 255, 1)) drop-shadow(0 0 15px rgba(255, 255, 255, 0.9)); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(-50%, 0px); }
+            50% { transform: translate(-50%, -10px); }
+        }
+
+        .launching {
+            animation: launchToSpace 2.5s cubic-bezier(0.85, 0, 1, 0.2) forwards !important;
+        }
+
+        @keyframes launchToSpace {
+            0% { transform: translate(-50%, 0px) scale(1); opacity: 1; }
+            30% { transform: translate(-50%, 20px) scale(1.05); }
+            100% { transform: translate(-50%, -120vh) scale(0.1); opacity: 0; }
+        }
+
+        .ui-text {
+            position: absolute;
+            top: 15%;
+            left: 5%;
+            color: #ffffff;
+            font-size: 1.2rem;
+            font-family: monospace;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 0 #000;
+            text-align: left;
+            pointer-events: none;
+            z-index: 4;
+        }
+
+        .start-btn {
+            position: absolute;
+            bottom: 6%;
+            z-index: 5;
+            padding: 12px 24px;
+            background-color: #ff6600;
+            color: white;
+            border: 4px solid white;
+            font-family: monospace;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 6px 0 #993d00;
+        }
+        .start-btn:active { transform: translateY(4px); box-shadow: 0 2px 0 #993d00; }
+
+        /* Canvas Warp */
+        #warp-phase {
+            background-color: #000;
+            display: none; 
+            opacity: 0;
+            z-index: 9;
+        }
+        #warpCanvas { width: 100%; height: 100%; }
+
+        /* =========================================
+           CONVERSACIÓN 2 (POST-HIPERVELOCIDAD)
+           ========================================= */
+        #conversacion2-phase {
+            font-family: 'Press Start 2P', monospace;
+            background-color: #050510;
+            display: none;
+            opacity: 0;
+            z-index: 8;
+            overflow: hidden;
+        }
+
+        #conv2-space-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 90px 40px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 130px 80px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 160px 120px, #ddd, rgba(0,0,0,0)),
+                linear-gradient(to bottom, #050510 0%, #1a0b2e 50%, #050510 100%);
+            background-repeat: repeat;
+            background-size: 200px 200px, 200px 200px, 200px 200px, 200px 200px, 200px 200px, 200px 200px, 100% 100%;
+            z-index: 1;
+        }
+
+        #planet-center {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            z-index: 10;
+            animation: float-planet 6s ease-in-out infinite;
+        }
+
+        #planet-center img {
+            width: 100%;
+            height: auto;
+            image-rendering: pixelated;
+        }
+
+        @keyframes float-planet {
+            0%, 100% { transform: translate(-50%, -50%); }
+            50% { transform: translate(-50%, -55%); }
+        }
+
+        @media (max-width: 600px) {
+            #planet-center {
+                width: 250px;
+                top: 35%;
+            }
+        }
+
+        /* Escena Principal (Loto Blanco) */
+        #main-scene {
+            display: none; 
+            opacity: 0;
+            z-index: 5;
+            background: linear-gradient(rgba(15, 15, 26, 0.75), rgba(15, 15, 26, 0.88)), url('escenario1.jpg');
+            background-size: cover;
+            background-position: center;
+            justify-content: center;
+            align-items: center;
+            cursor: none; 
+            color: white;
+        }
+
+        #ghost-cursor {
+            position: fixed;
+            top: -100px; left: -100px;
+            width: 75px; height: 75px;
+            pointer-events: none; 
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.2s ease-out; 
+            display: none;
+        }
+        #ghost-cursor.hovering { transform: translate(-50%, -50%) scale(1.3); }
+        #ghost-cursor img {
+            width: 100%; height: 100%; object-fit: contain;
+            animation: floatGhost 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.4));
+        }
+        @keyframes floatGhost { 0%, 100% { transform: translateY(-4px); } 50% { transform: translateY(4px); } }
+
+        .hunter-guardian {
+            position: absolute;
+            left: 30%; top: 55%;
+            transform: translate(-50%, -50%);
+            width: 140px; height: 250px; 
+            background-image: url('imagen.png'); 
+            background-size: 400% 100%; 
+            background-position: 0 0;
+            image-rendering: auto; 
+            animation: idleHunter 1.2s steps(4) infinite; 
+            z-index: 10;
+            filter: drop-shadow(0 0 15px rgba(0, 240, 255, 0.3));
+        }
+        @keyframes idleHunter { 0% { background-position: 0 0; } 100% { background-position: -400% 0; } }
+
+        .lotus-container { 
+            position: absolute; left: 65%; top: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; max-width: 550px; padding: 20px;
+        }
+        .intro-phrase {
+            font-family: 'Cinzel', serif; font-size: 20px; color: #f4e4bc;
+            line-height: 1.6; margin-bottom: 30px; text-shadow: 0 0 15px rgba(244, 228, 188, 0.4);
+            animation: pulseText 3s infinite alternate;
+        }
+        .lotus-tile {
+            width: 140px; height: 140px; background: #e0d8b0; border-radius: 50%;
+            border: 5px solid #8b7355; display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 0 30px rgba(224, 216, 176, 0.2);
+            transition: all 0.3s ease; cursor: none; overflow: hidden;
+        }
+        .lotus-tile img {
+            width: 85%;
+            height: 85%;
+            object-fit: contain;
+            border-radius: 50%;
+        }
+        .lotus-tile:hover { box-shadow: 0 0 50px rgba(224, 216, 176, 0.6); transform: scale(1.05); }
+        .lotus-instruction { margin-top: 20px; font-family: 'Cinzel', serif; letter-spacing: 2px; animation: pulseText 2s infinite; }
+
+        .orbs-container { 
+            position: absolute; left: 65%; top: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px; height: 300px; 
+            display: none; opacity: 0; transition: opacity 1s ease-in; 
+        }
+        .orb {
+            width: 75px; height: 75px; border-radius: 50%; position: absolute;
+            display: flex; justify-content: center; align-items: center; 
+            transition: all 0.4s; animation: floatOrb 3s infinite ease-in-out; cursor: none;
+            background-color: #000000;
+            overflow: hidden;
+        }
+        .orb img { width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
+        
+        .orb-water { top: -20px; left: 112px; border: 3px solid #00a2ff; box-shadow: 0 0 25px rgba(0, 162, 255, 0.8); animation-delay: 0s; }
+        .orb-earth { bottom: -20px; left: 112px; border: 3px solid #2e6f40; box-shadow: 0 0 25px rgba(46, 111, 64, 0.8); animation-delay: 0.5s; }
+        .orb-fire { top: 112px; right: -20px; border: 3px solid #ff3300; box-shadow: 0 0 25px rgba(255, 51, 0, 0.8); animation-delay: 1s; }
+        .orb-air { top: 112px; left: -20px; border: 3px solid #00f0ff; box-shadow: 0 0 25px rgba(0, 240, 255, 0.8); animation-delay: 1.5s; }
+        .orb.read { opacity: 0.2; filter: grayscale(100%); pointer-events: none; }
+
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.85); display: none; justify-content: center; align-items: center;
+            z-index: 100; opacity: 0; transition: opacity 0.5s;
+        }
+        .scroll-box {
+            background: #f4e4bc; color: #4a3b2c; padding: 40px; border-radius: 10px;
+            border: 2px solid #8b7355; width: 85%; max-width: 500px; text-align: center;
+            box-shadow: inset 0 0 50px rgba(139,115,85,0.4), 0 0 30px rgba(0,0,0,0.8);
+        }
+        .scroll-title { font-family: 'Cinzel', serif; font-size: 26px; margin-bottom: 20px; border-bottom: 2px solid #8b7355; padding-bottom: 10px; }
+        .scroll-text { font-size: 19px; line-height: 1.6; margin-bottom: 30px; font-weight: 600; }
+        .close-btn {
+            background: #8b7355; color: white; border: none; padding: 12px 25px;
+            font-family: 'Cinzel', serif; font-size: 16px; cursor: none; border-radius: 5px; transition: background 0.3s;
+        }
+
+        /* Pantalla Final */
+        .final-banner {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: linear-gradient(rgba(10, 10, 18, 0.7), rgba(0, 0, 0, 0.9)), url('escenario2.jpg');
+            background-size: cover;
+            background-position: center;
+            display: none; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 50; opacity: 0; transition: opacity 2s; text-align: center; padding: 20px; box-sizing: border-box;
+            cursor: default !important;
+        }
+
+        .final-content-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 1100px;
+            gap: 40px;
+            z-index: 2;
+        }
+
+        .final-text-container {
+            flex: 1;
+            max-width: 650px;
+        }
+
+        /* ESTILOS ESPECÍFICOS PARA LOS PERSONAJES EN LA PANTALLA FINAL */
+        .final-character-img {
+            object-fit: contain;
+            image-rendering: pixelated;
+            filter: drop-shadow(0 0 20px rgba(0, 240, 255, 0.4));
+        }
+
+        .guardian-david-img {
+            width: 320px; /* Guardián más grande */
+            height: auto;
+            max-height: 60vh;
+        }
+
+        .espectro-final-img {
+            width: 100px; /* Espectro más pequeño */
+            height: auto;
+            max-height: 30vh;
+        }
+
+        .final-banner h1 { font-family: 'Cinzel', serif; font-size: 45px; color: #f4e4bc; text-shadow: 0 0 20px rgba(244, 228, 188, 0.5); margin-bottom: 25px; }
+        .final-banner p { font-size: 20px; max-width: 800px; line-height: 1.8; color: #e0e0e0; margin-bottom: 15px;}
+        
+        .light-burst {
+            position: absolute; width: 2px; height: 2px;
+            box-shadow: 0 0 250px 200px rgba(0, 240, 255, 0.15); 
+            background: white; border-radius: 50%; z-index: 1;
+            animation: pulseLight 4s infinite alternate;
+        }
+
+        @media (max-width: 850px) {
+            .final-content-wrapper {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .guardian-david-img {
+                width: 180px;
+                max-height: 250px;
+            }
+            .espectro-final-img {
+                width: 70px;
+                max-height: 100px;
+            }
+            .final-banner h1 { font-size: 32px; }
+            .final-banner p { font-size: 16px; }
+        }
+
+        @keyframes pulseText { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+        @keyframes floatOrb { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @keyframes pulseLight { 0% { opacity: 0.5; transform: scale(0.8); } 100% { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <div id="phase1-conversacion" class="master-phase active">
+        <div id="scenery-background"></div>
+
+        <div id="espectro-float-container">
+            <img src="espectro2.gif" id="espectro-float-gif" alt="Espectro flotando">
+        </div>
+
+        <div class="dialogue-wrapper">
+            <section class="dialogue-box" id="conv1-dialogue-box" aria-live="polite">
+                <figure class="character-portrait">
+                    <img id="portrait-img" src="espectro3.png" alt="Retrato">
+                </figure>
+                
+                <div class="dialogue-content">
+                    <header class="character-name" id="character-name">ESPECTRO</header>
+                    <p class="dialogue-text" id="dialogue-text">...</p>
+                    <span class="next-arrow" id="next-arrow" aria-hidden="true">▼</span>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div id="phase2-carga" class="master-phase">
+        <img src="carga.gif" alt="Cargando..." class="loading-gif">
+        <div class="loading-text">Sincronizando coordenadas...</div>
+    </div>
+
+    <div id="phase3-regalo" class="master-phase">
+        
+        <div class="phase-regalo" id="orbit-phase">
+            <div class="stars"></div>
+            <div class="ui-text" id="status-text">Órbita Terrestre - Preparando Salto</div>
+            
+            <img src="planeta.png" class="earth" alt="Tierra">
+            <img src="Viajero.png" class="traveler" alt="El Viajero">
+            
+            <div class="ship-wrapper" id="ship">
+                <img src="nave.png" alt="Nave Destiny" class="ship-img">
+            </div>
+
+            <button class="start-btn" id="launch-trigger">INICIAR SALTO CORRIENTE</button>
+        </div>
+
+        <div class="phase-regalo" id="warp-phase">
+            <canvas id="warpCanvas"></canvas>
+        </div>
+
+        <div class="phase-regalo" id="conversacion2-phase">
+            <div id="conv2-space-bg"></div>
+
+            <div id="planet-center">
+                <img src="planetaavatar.png" alt="Planeta Avatar">
+            </div>
+
+            <div class="dialogue-wrapper">
+                <section class="dialogue-box" id="conv2-dialogue-box" aria-live="polite">
+                    <figure class="character-portrait">
+                        <img id="conv2-portrait-img" src="guardian.png" alt="Retrato">
+                    </figure>
+                    
+                    <div class="dialogue-content">
+                        <header class="character-name" id="conv2-character-name">David</header>
+                        <p class="dialogue-text" id="conv2-dialogue-text">...</p>
+                        <span class="next-arrow" id="conv2-next-arrow" aria-hidden="true">▼</span>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <div class="phase-regalo" id="main-scene">
+            <div id="ghost-cursor">
+                <img src="espectro.gif" alt="Espectro">
+            </div>
+
+            <div class="hunter-guardian" id="hunter-guardian"></div>
+
+            <div class="lotus-container" id="lotus-screen">
+                <p class="intro-phrase">Ale, he viajado a través de las estrellas para decirte algo: así como el Viajero trajo la Luz a nuestro sistema, el universo te otorgó a ti un don único. Cuando te miro, no solo veo a la persona que amo, sino el equilibrio perfecto de las cuatro naciones, la fuerza y la armonía del verdadero Avatar.</p>
+                <div class="lotus-tile" onclick="revealOrbs()">
+                    <img src="lotoblanco.png" alt="Loto Blanco">
+                </div>
+                <div class="lotus-instruction">Descubre el Loto Blanco</div>
+            </div>
+
+            <div class="orbs-container" id="orbs-screen">
+                <div class="orb orb-water" id="orb-0" onclick="openScroll(0)"><img src="agua.jpg" alt="Agua"></div>
+                <div class="orb orb-earth" id="orb-1" onclick="openScroll(1)"><img src="tierra.jpg" alt="Tierra"></div>
+                <div class="orb orb-fire" id="orb-2" onclick="openScroll(2)"><img src="fuego.jpg" alt="Fuego"></div>
+                <div class="orb orb-air" id="orb-3" onclick="openScroll(3)"><img src="aire.jpg" alt="Aire"></div>
+            </div>
+
+            <div class="modal-overlay" id="scroll-modal">
+                <div class="scroll-box">
+                    <div class="scroll-title" id="scroll-title">Título</div>
+                    <div class="scroll-text" id="scroll-text">Texto.</div>
+                    <button class="close-btn" onclick="closeScroll()">Cerrar</button>
+                </div>
+            </div>
+
+            <div class="final-banner" id="final-screen">
+                <div class="light-burst"></div>
+                
+                <div class="final-content-wrapper">
+                    <!-- GUARDIÁN GRANDE -->
+                    <img src="guardiandavid.png" alt="Guardián David" class="final-character-img guardian-david-img">
+
+                    <div class="final-text-container">
+                        <h1>¡Felices 24, mi corotico!</h1>
+                        <p>Tú dominas todo lo que le da sentido a mi vida, Ale. Gracias por ser el Avatar de mi mundo y la Luz más brillante de cualquier universo.</p>
+                        <p style="color: #00f0ff; font-weight: bold; font-size: 21px; margin-top: 15px;">Prometo usar siempre mi Luz para ser el Cazador que cuide tu espalda desde las sombras y camine a tu lado en cada aventura.</p>
+                        <p style="margin-top: 30px; font-size: 22px; color: #87CEFA; font-family: 'Cinzel', serif;">David te ama inmensamente.</p>
+                    </div>
+                    
+                    <!-- ESPECTRO PEQUEÑO -->
+                    <img src="espectro4.png" alt="Espectro" class="final-character-img espectro-final-img">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const typingSpeed = 35;
+
+        /* ---------------------------------------------------
+           LÓGICA FASE 1: CONVERSACIÓN INICIAL
+           --------------------------------------------------- */
+        const conversation1 = [
+            { speaker: "ESPECTRO", text: "David, no quiero interrumpir tu guardia, pero mi escáner está detectando una frecuencia imposible...", image: "espectro3.png" },
+            { speaker: "David", text: "¿Qué ocurre, Espectro? ¿Actividad de la Oscuridad en el sector?", image: "guardian.png" },
+            { speaker: "ESPECTRO", text: "No... todo lo contrario. Es una firma de Luz, pero no como la de los Guardianes. Es cálida, antigua y vibra en cuatro frecuencias distintas a la vez.", image: "espectro3.png" },
+            { speaker: "David", text: "¿El nacimiento de un nuevo Guardián en la Tierra?", image: "guardian.png" },
+            { speaker: "ESPECTRO", text: "Ajustando matriz de rastreo... Un momento...", image: "espectro3.png" },
+            { speaker: "ESPECTRO", text: "....................", image: "espectro3.png" },
+            { speaker: "David", text: "¿Espectro? ¿Sigues ahí?", image: "guardian.png" },
+            { speaker: "ESPECTRO", text: "¡Esta energía cruza las fronteras de nuestro sistema! Proviene de otro universo. En su mundo no hay Espectros; a quien domina esos cuatro elementos lo llaman el Avatar.", image: "espectro3.png" },
+            { speaker: "David", text: "Un ser capaz de dominar cuatro fuerzas primordiales... Eso es impresionante.", image: "guardian.png" },
+            { speaker: "ESPECTRO", text: "Capto un símbolo... El Loto Blanco. Parece que están buscando a la verdadera maestra de este ciclo. ¿Rastreamos la señal?", image: "espectro3.png" },
+            { speaker: "David", text: "Un Cazador nunca rechaza una expedición hacia lo desconocido. Prepara la nave, vamos a buscarla.", image: "guardian.png" }
+        ];
+
+        let currentDialogIndex1 = 0;
+        let isTyping1 = false;
+        let typingTimeout1;
+        let isPhase1Active = true; 
+
+        const uiPortrait1 = document.getElementById("portrait-img");
+        const uiName1 = document.getElementById("character-name");
+        const uiText1 = document.getElementById("dialogue-text");
+        const uiArrow1 = document.getElementById("next-arrow");
+
+        function showDialogue1() {
+            if (currentDialogIndex1 >= conversation1.length) return;
+            const current = conversation1[currentDialogIndex1];
+            uiName1.innerText = current.speaker;
+            uiPortrait1.src = current.image;
+            uiText1.innerHTML = ""; 
+            uiArrow1.style.display = "none";
+            isTyping1 = true;
+            typeWriter1(current.text, 0);
+        }
+
+        function typeWriter1(text, i) {
+            if (i < text.length) {
+                uiText1.innerHTML += text.charAt(i);
+                typingTimeout1 = setTimeout(() => typeWriter1(text, i + 1), typingSpeed);
+            } else {
+                isTyping1 = false;
+                uiArrow1.style.display = "block";
+            }
+        }
+
+        function advanceDialogue1() {
+            if (!isPhase1Active) return;
+            if (currentDialogIndex1 >= conversation1.length) return;
+
+            if (isTyping1) {
+                clearTimeout(typingTimeout1);
+                uiText1.innerHTML = conversation1[currentDialogIndex1].text;
+                isTyping1 = false;
+                uiArrow1.style.display = "block";
+            } else {
+                currentDialogIndex1++;
+                if (currentDialogIndex1 < conversation1.length) {
+                    showDialogue1();
+                } else {
+                    uiText1.innerHTML += " <em>-- Fin de la transmisión --</em>";
+                    uiArrow1.style.display = "none";
+                    isPhase1Active = false;
+                    setTimeout(transitionToPhase2, 2000);
+                }
+            }
+        }
+
+        uiArrow1.addEventListener("click", advanceDialogue1);
+        document.getElementById('conv1-dialogue-box').addEventListener("click", () => {
+            if (isPhase1Active && !isTyping1) advanceDialogue1();
+        });
+
+        window.onload = showDialogue1;
+
+        /* ---------------------------------------------------
+           LÓGICA DE TRANSICIONES A FASE 2 Y 3
+           --------------------------------------------------- */
+        function transitionToPhase2() {
+            const p1 = document.getElementById('phase1-conversacion');
+            const p2 = document.getElementById('phase2-carga');
+            
+            p1.style.opacity = '0';
+            setTimeout(() => {
+                p1.style.display = 'none';
+                p2.style.display = 'flex';
+                setTimeout(() => p2.style.opacity = '1', 50);
+                setTimeout(transitionToPhase3, 4000); 
+            }, 1000);
+        }
+
+        function transitionToPhase3() {
+            const p2 = document.getElementById('phase2-carga');
+            const p3 = document.getElementById('phase3-regalo');
+
+            p2.style.opacity = '0';
+            setTimeout(() => {
+                p2.style.display = 'none';
+                p3.style.display = 'block';
+                setTimeout(() => p3.style.opacity = '1', 50);
+            }, 1000);
+        }
+
+        /* ---------------------------------------------------
+           LÓGICA FASE 3: ÓRBITA & HIPERVELOCIDAD
+           --------------------------------------------------- */
+        const button = document.getElementById('launch-trigger');
+        const ship = document.getElementById('ship');
+        const statusText = document.getElementById('status-text');
+
+        const orbitPhase = document.getElementById('orbit-phase');
+        const warpPhase = document.getElementById('warp-phase');
+
+        button.addEventListener('click', () => {
+            button.style.display = 'none';
+            statusText.innerText = "Salto de Disformidad Iniciado...";
+            ship.classList.add('launching');
+
+            setTimeout(() => {
+                orbitPhase.style.opacity = '0';
+                setTimeout(() => {
+                    orbitPhase.style.display = 'none';
+                    warpPhase.style.display = 'block';
+                    setTimeout(() => warpPhase.style.opacity = '1', 50); 
+                    startWarpAnimation();
+                }, 1000);
+            }, 2500);
+
+            setTimeout(() => {
+                warpPhase.style.opacity = '0';
+                setTimeout(() => {
+                    warpPhase.style.display = 'none';
+                    stopWarpAnimation();
+                    
+                    // Transicionar a Conversación 2 (Llegada al planeta Avatar)
+                    startConversacion2();
+                }, 1000);
+            }, 6000);
+        });
+
+        // --- ANIMACIÓN CANVAS HIPERVELOCIDAD ---
+        const warpCanvas = document.getElementById('warpCanvas');
+        const warpCtx = warpCanvas.getContext('2d');
+        let warpAnimationId;
+        const trails = [];
+        const numTrails = 150;
+        let warpActive = false;
+
+        function startWarpAnimation() {
+            if (warpActive) return;
+            warpActive = true;
+            resizeWarpCanvas();
+            window.addEventListener('resize', resizeWarpCanvas);
+            for (let i = 0; i < numTrails; i++) {
+                trails.push({
+                    x: Math.random() * warpCanvas.width,
+                    y: Math.random() * warpCanvas.height,
+                    length: Math.random() * 200 + 100,
+                    speed: Math.random() * 20 + 10,
+                    color: ['#ffffff', '#00ffff', '#0088ff', '#5500ff'][Math.floor(Math.random() * 4)]
+                });
+            }
+            animateWarp();
+        }
+
+        function stopWarpAnimation() {
+            warpActive = false;
+            cancelAnimationFrame(warpAnimationId);
+        }
+
+        function resizeWarpCanvas() {
+            warpCanvas.width = window.innerWidth;
+            warpCanvas.height = window.innerHeight;
+        }
+
+        function animateWarp() {
+            if (!warpActive) return;
+            warpCtx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            warpCtx.fillRect(0, 0, warpCanvas.width, warpCanvas.height);
+            for (let i = 0; i < numTrails; i++) {
+                let trail = trails[i];
+                warpCtx.fillStyle = trail.color;
+                warpCtx.fillRect(trail.x, trail.y, trail.length, 4);
+                trail.x -= trail.speed;
+                if (trail.x + trail.length < 0) {
+                    trail.x = warpCanvas.width;
+                    trail.y = Math.random() * warpCanvas.height;
+                }
+            }
+            warpAnimationId = requestAnimationFrame(animateWarp);
+        }
+
+        /* ---------------------------------------------------
+           LÓGICA CONVERSACIÓN 2 (PLANETA AVATAR)
+           --------------------------------------------------- */
+        const conversation2 = [
+            { speaker: "David", text: "Así que este es su planeta... Se siente una energía muy diferente a la de la Última Ciudad.", image: "guardian.png" },
+            { speaker: "ESPECTRO", text: "Así es. Y no solo cruzamos universos... el rastreador indica que la fuente de toda esa Luz proviene directamente de ella.", image: "espectro3.png" },
+            { speaker: "David", text: "Ale... Siempre supe que tenía una chispa especial, pero ver su Luz brillar a través del cosmos es otra cosa.", image: "guardian.png" },
+            { speaker: "ESPECTRO", text: "Frente a nosotros está el sello del Loto Blanco. Solo alguien que comprenda los cuatro elementos podrá revelar lo que guarda en su interior.", image: "espectro3.png" },
+            { speaker: "David", text: "Hagámoslo. Es hora de mostrarle lo que significa para mí.", image: "guardian.png" }
+        ];
+
+        let currentDialogIndex2 = 0;
+        let isTyping2 = false;
+        let typingTimeout2;
+        let isPhaseConv2Active = false;
+
+        const uiPortrait2 = document.getElementById("conv2-portrait-img");
+        const uiName2 = document.getElementById("conv2-character-name");
+        const uiText2 = document.getElementById("conv2-dialogue-text");
+        const uiArrow2 = document.getElementById("conv2-next-arrow");
+
+        function startConversacion2() {
+            const conv2Phase = document.getElementById('conversacion2-phase');
+            conv2Phase.style.display = 'block';
+            setTimeout(() => conv2Phase.style.opacity = '1', 50);
+
+            isPhaseConv2Active = true;
+            currentDialogIndex2 = 0;
+            showDialogue2();
+        }
+
+        function showDialogue2() {
+            if (currentDialogIndex2 >= conversation2.length) return;
+            const current = conversation2[currentDialogIndex2];
+            uiName2.innerText = current.speaker;
+            uiPortrait2.src = current.image;
+            uiText2.innerHTML = ""; 
+            uiArrow2.style.display = "none";
+            isTyping2 = true;
+            typeWriter2(current.text, 0);
+        }
+
+        function typeWriter2(text, i) {
+            if (i < text.length) {
+                uiText2.innerHTML += text.charAt(i);
+                typingTimeout2 = setTimeout(() => typeWriter2(text, i + 1), typingSpeed);
+            } else {
+                isTyping2 = false;
+                uiArrow2.style.display = "block";
+            }
+        }
+
+        function advanceDialogue2() {
+            if (!isPhaseConv2Active) return;
+            if (currentDialogIndex2 >= conversation2.length) return;
+
+            if (isTyping2) {
+                clearTimeout(typingTimeout2);
+                uiText2.innerHTML = conversation2[currentDialogIndex2].text;
+                isTyping2 = false;
+                uiArrow2.style.display = "block";
+            } else {
+                currentDialogIndex2++;
+                if (currentDialogIndex2 < conversation2.length) {
+                    showDialogue2();
+                } else {
+                    uiArrow2.style.display = "none";
+                    isPhaseConv2Active = false;
+                    setTimeout(transitionFromConv2ToMainScene, 1000);
+                }
+            }
+        }
+
+        uiArrow2.addEventListener("click", advanceDialogue2);
+        document.getElementById("conv2-dialogue-box").addEventListener("click", () => {
+            if (isPhaseConv2Active && !isTyping2) advanceDialogue2();
+        });
+
+        function transitionFromConv2ToMainScene() {
+            const conv2Phase = document.getElementById('conversacion2-phase');
+            const mainScene = document.getElementById('main-scene');
+
+            conv2Phase.style.opacity = '0';
+            setTimeout(() => {
+                conv2Phase.style.display = 'none';
+                
+                mainScene.style.display = 'flex';
+                setTimeout(() => mainScene.style.opacity = '1', 50);
+
+                document.getElementById('ghost-cursor').style.display = 'block';
+                document.body.style.cursor = 'none';
+                initializeCursor();
+            }, 1000);
+        }
+
+        /* ---------------------------------------------------
+           LÓGICA TECLADO GLOBAL (ENTER)
+           --------------------------------------------------- */
+        window.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                if (isPhase1Active) {
+                    advanceDialogue1();
+                } else if (isPhaseConv2Active) {
+                    advanceDialogue2();
+                }
+            }
+        });
+
+        /* ---------------------------------------------------
+           LÓGICA FASE FINAL: ORBES Y ESPECTRO
+           --------------------------------------------------- */
+        let cursor;
+        function initializeCursor() {
+            cursor = document.getElementById('ghost-cursor');
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            });
+            document.querySelectorAll('.lotus-tile, .orb, .close-btn').forEach(el => {
+                el.addEventListener('mouseenter', () => cursor && cursor.classList.add('hovering'));
+                el.addEventListener('mouseleave', () => cursor && cursor.classList.remove('hovering'));
+            });
+        }
+
+        const messages = [
+            { title: "Agua — La Fluidez y la Sanación", text: "Cuando mis días se vuelven caóticos y la Oscuridad parece ganar terreno, tú eres el oasis que me devuelve la calma. Tienes la gracia de adaptarte a cualquier corriente y la sabiduría para sanar cualquier herida. A tu lado, hasta la tormenta más dura encuentra paz." },
+            { title: "Tierra — La Fuerza e Inquebrantabilidad", text: "Posees una determinación firme y noble. Eres mi ancla en este universo, tan imponente y protectora como los cimientos de la Última Ciudad. En un mundo lleno de incertidumbre y cambios, tu presencia es mi suelo firme, el lugar donde sé que siempre puedo estar a salvo." },
+            { title: "Fuego — La Pasión y la Chispa Solar", text: "Tu corazón arde con una energía insuperable. Eres mi propia Luz Solar iluminando los rincones más oscuros. Admiro la valentía y el calor con el que defiendes tus sueños y a quienes amas. Esa llama tuya es la que enciende mi propia chispa cada día." },
+            { title: "Aire — La Libertad y el Viento Cálido", text: "Traes a mi vida una sensación de libertad infinita. Como Cazador, siempre creí que mi camino era andar en solitario, pero tú me enseñaste que volar es mucho mejor cuando el viento sopla a tu lado. Tu risa despeja cualquier nubarrón y eleva mi espíritu." }
+        ];
+
+        let orbsRead = [false, false, false, false];
+        let currentOrbIndex = -1;
+
+        function revealOrbs() {
+            const lotus = document.getElementById('lotus-screen');
+            const orbs = document.getElementById('orbs-screen');
+            lotus.style.transform = 'translate(-50%, -50%) scale(0)';
+            lotus.style.opacity = '0';
+            setTimeout(() => {
+                lotus.style.display = 'none';
+                orbs.style.display = 'block';
+                setTimeout(() => orbs.style.opacity = '1', 50);
+            }, 1000);
+        }
+
+        function openScroll(index) {
+            if (orbsRead[index]) return; 
+            currentOrbIndex = index;
+            document.getElementById('scroll-title').innerText = messages[index].title;
+            document.getElementById('scroll-text').innerText = messages[index].text;
+            const modal = document.getElementById('scroll-modal');
+            modal.style.display = 'flex';
+            setTimeout(() => modal.style.opacity = '1', 50);
+        }
+
+        function closeScroll() {
+            const modal = document.getElementById('scroll-modal');
+            modal.style.opacity = '0';
+            if (currentOrbIndex !== -1) {
+                orbsRead[currentOrbIndex] = true;
+                document.getElementById(`orb-${currentOrbIndex}`).classList.add('read');
+                if(cursor) cursor.classList.remove('hovering'); 
+            }
+            setTimeout(() => {
+                modal.style.display = 'none';
+                checkCompletion();
+            }, 500);
+        }
+
+        function checkCompletion() {
+            if (orbsRead.every(status => status === true)) {
+                const orbs = document.getElementById('orbs-screen');
+                const finalScreen = document.getElementById('final-screen');
+                const hunterGuardian = document.getElementById('hunter-guardian');
+                const ghostCursor = document.getElementById('ghost-cursor');
+                const mainScene = document.getElementById('main-scene');
+                
+                orbs.style.opacity = '0';
+                hunterGuardian.style.opacity = '0';
+
+                // Restaurar cursor estándar y ocultar el GIF flotante
+                if (ghostCursor) ghostCursor.style.display = 'none';
+                document.body.style.cursor = 'default';
+                if (mainScene) mainScene.style.cursor = 'default';
+                
+                setTimeout(() => {
+                    orbs.style.display = 'none';
+                    hunterGuardian.style.display = 'none';
+                    finalScreen.style.display = 'flex';
+                    setTimeout(() => finalScreen.style.opacity = '1', 100);
+                }, 1000);
+            }
+        }
+    </script>
+</body>
+</html>
