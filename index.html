@@ -635,7 +635,7 @@
         
         <div class="phase-regalo" id="orbit-phase">
             <div class="stars"></div>
-            <div class="ui-text" id="status-text">Órbita Terrestre - Preparando Salto</div>
+            <div class="ui-text" id="status-text">UNIVERSO 08222001 (DESTINY) - Preparando Salto</div>
             
             <img src="planeta.png" class="earth" alt="Tierra">
             <img src="Viajero.png" class="traveler" alt="El Viajero">
@@ -644,7 +644,7 @@
                 <img src="nave.png" alt="Nave Destiny" class="ship-img">
             </div>
 
-            <button class="start-btn" id="launch-trigger">INICIAR SALTO CORRIENTE</button>
+            <button class="start-btn" id="launch-trigger">INICIAR SALTO A UNIVERSO 01102002 (AVATAR)</button>
         </div>
 
         <div class="phase-regalo" id="warp-phase">
@@ -681,11 +681,11 @@
             <div class="hunter-guardian" id="hunter-guardian"></div>
 
             <div class="lotus-container" id="lotus-screen">
-                <p class="intro-phrase">Ale, he viajado a través de las estrellas para decirte algo: así como el Viajero trajo la Luz a nuestro sistema, el universo te otorgó a ti un don único. Cuando te miro, no solo veo a la persona que amo, sino el equilibrio perfecto de las cuatro naciones, la fuerza y la armonía del verdadero Avatar.</p>
+                <p class="intro-phrase">Ale, he viajado a través de las estrellas para decirte algo: así como el Viajero trajo la Luz a nuestro sistema, el universo te otorgó a ti un don único. Cuando te miro, no solo veo a la persona que amo, sino el equilibrio, la fuerza y la armonía de un Avatar.</p>
                 <div class="lotus-tile" onclick="revealOrbs()">
                     <img src="lotoblanco.png" alt="Loto Blanco">
                 </div>
-                <div class="lotus-instruction">Descubre el Loto Blanco</div>
+                <div class="lotus-instruction">Presiona el Loto Blanco</div>
             </div>
 
             <div class="orbs-container" id="orbs-screen">
@@ -713,7 +713,7 @@
                     <div class="final-text-container">
                         <h1>¡Felices 24, mi corotico!</h1>
                         <p>Tú dominas todo lo que le da sentido a mi vida, Ale. Gracias por ser el Avatar de mi mundo y la Luz más brillante de cualquier universo.</p>
-                        <p style="color: #00f0ff; font-weight: bold; font-size: 21px; margin-top: 15px;">Prometo usar siempre mi Luz para ser el Cazador que cuide tu espalda desde las sombras y camine a tu lado en cada aventura.</p>
+                        <p style="color: #00f0ff; font-weight: bold; font-size: 21px; margin-top: 15px;">Prometo usar siempre mi Luz para ser el Guardian que cuide tu espalda desde las sombras y camine a tu lado en cada aventura.</p>
                         <p style="margin-top: 30px; font-size: 22px; color: #87CEFA; font-family: 'Cinzel', serif;">David te ama inmensamente.</p>
                     </div>
                     
@@ -845,7 +845,7 @@
 
         button.addEventListener('click', () => {
             button.style.display = 'none';
-            statusText.innerText = "Salto de Disformidad Iniciado...";
+            statusText.innerText = "Salto Iniciado...";
             ship.classList.add('launching');
 
             setTimeout(() => {
@@ -930,7 +930,7 @@
             { speaker: "ESPECTRO", text: "Así es. Y no solo cruzamos universos... el rastreador indica que la fuente de toda esa Luz proviene directamente de ella.", image: "espectro3.png" },
             { speaker: "David", text: "Ale... Siempre supe que tenía una chispa especial, pero ver su Luz brillar a través del cosmos es otra cosa.", image: "guardian.png" },
             { speaker: "ESPECTRO", text: "Frente a nosotros está el sello del Loto Blanco. Solo alguien que comprenda los cuatro elementos podrá revelar lo que guarda en su interior.", image: "espectro3.png" },
-            { speaker: "David", text: "Hagámoslo. Es hora de mostrarle lo que significa para mí.", image: "guardian.png" }
+            { speaker: "David", text: "Hagámoslo. Es hora de mostrarle lo que ella representa.", image: "guardian.png" }
         ];
 
         let currentDialogIndex2 = 0;
